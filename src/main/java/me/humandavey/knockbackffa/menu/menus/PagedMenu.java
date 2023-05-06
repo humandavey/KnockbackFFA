@@ -1,8 +1,8 @@
-package me.humandavey.template.menu.menus;
+package me.humandavey.knockbackffa.menu.menus;
 
-import me.humandavey.template.menu.Menu;
-import me.humandavey.template.util.Util;
-import me.humandavey.template.util.item.ItemBuilder;
+import me.humandavey.knockbackffa.menu.Menu;
+import me.humandavey.knockbackffa.util.Util;
+import me.humandavey.knockbackffa.util.item.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

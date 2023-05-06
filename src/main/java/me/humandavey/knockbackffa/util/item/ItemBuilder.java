@@ -1,4 +1,4 @@
-package me.humandavey.template.util.item;
+package me.humandavey.knockbackffa.util.item;
 
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;

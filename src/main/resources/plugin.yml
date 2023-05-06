@@ -1,5 +1,5 @@
-name: Template
+name: KnockbackFFA
 version: '${project.version}'
-main: me.humandavey.template.Template
+main: me.humandavey.knockbackffa.KnockbackFFA
 api-version: 1.19
 authors: [ humandavey ]

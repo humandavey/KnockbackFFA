@@ -1,4 +1,4 @@
-package me.humandavey.template.nametag;
+package me.humandavey.knockbackffa.nametag;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

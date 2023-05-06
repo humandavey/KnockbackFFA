@@ -1,12 +1,12 @@
-package me.humandavey.template;
+package me.humandavey.knockbackffa;
 
-import me.humandavey.template.command.commands.ExampleCommand;
-import me.humandavey.template.nametag.NametagManager;
+import me.humandavey.knockbackffa.command.commands.ExampleCommand;
+import me.humandavey.knockbackffa.nametag.NametagManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public final class Template extends JavaPlugin {
+public final class KnockbackFFA extends JavaPlugin {
 
-	private static Template instance;
+	private static KnockbackFFA instance;
 
 	@Override
 	public void onEnable() {
@@ -40,7 +40,7 @@ public final class Template extends JavaPlugin {
 		new ExampleCommand();
 	}
 
-	public static Template getInstance() {
+	public static KnockbackFFA getInstance() {
 		return instance;
 	}
 }

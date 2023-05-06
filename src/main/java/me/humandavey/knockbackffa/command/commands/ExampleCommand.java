@@ -1,8 +1,8 @@
-package me.humandavey.template.command.commands;
+package me.humandavey.knockbackffa.command.commands;
 
-import me.humandavey.template.command.Command;
-import me.humandavey.template.nametag.NametagManager;
-import me.humandavey.template.scoreboard.ScoreboardManager;
+import me.humandavey.knockbackffa.command.Command;
+import me.humandavey.knockbackffa.nametag.NametagManager;
+import me.humandavey.knockbackffa.scoreboard.ScoreboardManager;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
