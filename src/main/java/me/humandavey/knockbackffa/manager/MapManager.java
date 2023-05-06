@@ -58,6 +58,14 @@ public class MapManager {
 		return false;
 	}
 
+	public void deleteMap(String name) {
+		KnockbackMap map = getMap(name);
+		if (map == null) return;
+
+		KnockbackFFA.getInstance().getConfig().set("data." + map.getName(), null);
+		KnockbackFFA.getInstance().saveConfig();
+	}
+
 	private void updateMaps() {
 		for (int i = unavailableMaps.size() - 1; i >= 0; i--) {
 			if (unavailableMaps.get(i).isMapReady()) {
@@ -71,6 +79,26 @@ public class MapManager {
 				availableMaps.remove(i);
 			}
 		}
+	}
+
+	public void setCurrentMap(KnockbackMap currentMap) {
+		this.currentMap = currentMap;
+
+		// TODO: Teleport all players and reset their stats
+	}
+
+	public KnockbackMap getMap(String name) {
+		for (KnockbackMap map : availableMaps) {
+			if (map.getName().equalsIgnoreCase(name)) {
+				return map;
+			}
+		}
+		for (KnockbackMap map : unavailableMaps) {
+			if (map.getName().equalsIgnoreCase(name)) {
+				return map;
+			}
+		}
+		return null;
 	}
 
 	public KnockbackMap getCurrentMap() {
