@@ -1,12 +1,14 @@
 package me.humandavey.knockbackffa;
 
-import me.humandavey.knockbackffa.command.commands.ExampleCommand;
+import me.humandavey.knockbackffa.command.commands.KnockbackCommand;
+import me.humandavey.knockbackffa.manager.MapManager;
 import me.humandavey.knockbackffa.nametag.NametagManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class KnockbackFFA extends JavaPlugin {
 
 	private static KnockbackFFA instance;
+	private MapManager mapManager;
 
 	@Override
 	public void onEnable() {
@@ -29,7 +31,7 @@ public final class KnockbackFFA extends JavaPlugin {
 	}
 
 	private void setupManagers() {
-
+		mapManager = new MapManager();
 	}
 
 	private void registerListeners() {
@@ -37,7 +39,11 @@ public final class KnockbackFFA extends JavaPlugin {
 	}
 
 	private void registerCommands() {
-		new ExampleCommand();
+		new KnockbackCommand();
+	}
+
+	public MapManager getMapManager() {
+		return mapManager;
 	}
 
 	public static KnockbackFFA getInstance() {
