@@ -35,6 +35,18 @@ public class KnockbackMap {
 		return (location.getX() >= minX && location.getX() <= maxX) && (location.getY() >= minY && location.getY() <= maxY) && (location.getZ() >= minZ && location.getZ() <= maxZ);
 	}
 
+	public void setPos1(Location pos1) {
+		this.pos1 = pos1;
+	}
+
+	public void setPos2(Location pos2) {
+		this.pos2 = pos2;
+	}
+
+	public void setSpawn(Location spawn) {
+		this.spawn = spawn;
+	}
+
 	public Location getSpawn() {
 		return spawn;
 	}
