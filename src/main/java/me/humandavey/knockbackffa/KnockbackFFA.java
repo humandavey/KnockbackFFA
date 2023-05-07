@@ -2,7 +2,7 @@ package me.humandavey.knockbackffa;
 
 import me.humandavey.knockbackffa.command.commands.KnockbackCommand;
 import me.humandavey.knockbackffa.listeners.BlockListener;
-import me.humandavey.knockbackffa.listeners.JoinListener;
+import me.humandavey.knockbackffa.listeners.JoinQuitListener;
 import me.humandavey.knockbackffa.listeners.PlayerDamageListener;
 import me.humandavey.knockbackffa.listeners.PlayerMoveListener;
 import me.humandavey.knockbackffa.manager.MapManager;
@@ -40,7 +40,7 @@ public final class KnockbackFFA extends JavaPlugin {
 
 	private void registerListeners() {
 		getServer().getPluginManager().registerEvents(new NametagManager(), this);
-		getServer().getPluginManager().registerEvents(new JoinListener(), this);
+		getServer().getPluginManager().registerEvents(new JoinQuitListener(), this);
 		getServer().getPluginManager().registerEvents(new PlayerMoveListener(), this);
 		getServer().getPluginManager().registerEvents(new PlayerDamageListener(), this);
 		getServer().getPluginManager().registerEvents(new BlockListener(), this);
