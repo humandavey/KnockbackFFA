@@ -1,5 +1,6 @@
 package me.humandavey.knockbackffa.map;
 
+import me.humandavey.knockbackffa.KnockbackFFA;
 import org.bukkit.Location;
 
 public class KnockbackMap {
@@ -37,14 +38,31 @@ public class KnockbackMap {
 
 	public void setPos1(Location pos1) {
 		this.pos1 = pos1;
+
+		KnockbackFFA.getInstance().getConfig().set("data." + name + ".corner-1.x", pos1.getX());
+		KnockbackFFA.getInstance().getConfig().set("data." + name + ".corner-1.y", pos1.getY());
+		KnockbackFFA.getInstance().getConfig().set("data." + name + ".corner-1.z", pos1.getZ());
+		KnockbackFFA.getInstance().saveConfig();
 	}
 
 	public void setPos2(Location pos2) {
 		this.pos2 = pos2;
+
+		KnockbackFFA.getInstance().getConfig().set("data." + name + ".corner-2.x", pos2.getX());
+		KnockbackFFA.getInstance().getConfig().set("data." + name + ".corner-2.y", pos2.getY());
+		KnockbackFFA.getInstance().getConfig().set("data." + name + ".corner-2.z", pos2.getZ());
+		KnockbackFFA.getInstance().saveConfig();
 	}
 
 	public void setSpawn(Location spawn) {
 		this.spawn = spawn;
+
+		KnockbackFFA.getInstance().getConfig().set("data." + name + ".spawn.x", spawn.getX());
+		KnockbackFFA.getInstance().getConfig().set("data." + name + ".spawn.y", spawn.getY());
+		KnockbackFFA.getInstance().getConfig().set("data." + name + ".spawn.z", spawn.getZ());
+		KnockbackFFA.getInstance().getConfig().set("data." + name + ".spawn.yaw", spawn.getYaw());
+		KnockbackFFA.getInstance().getConfig().set("data." + name + ".spawn.pitch", spawn.getPitch());
+		KnockbackFFA.getInstance().saveConfig();
 	}
 
 	public Location getSpawn() {
