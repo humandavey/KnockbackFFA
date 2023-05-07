@@ -7,7 +7,13 @@ import me.humandavey.knockbackffa.menu.Menu;
 import me.humandavey.knockbackffa.util.Util;
 import me.humandavey.knockbackffa.util.item.ItemBuilder;
 import org.bukkit.Material;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.util.StringUtil;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class KnockbackCommand extends Command {
 
@@ -193,5 +199,36 @@ public class KnockbackCommand extends Command {
 				}
 			}
 		}
+	}
+
+	@Override
+	public List<String> tabComplete(CommandSender sender, String[] args) {
+		ArrayList<String> completions = new ArrayList<>();
+		ArrayList<String> commands = new ArrayList<>();
+
+		if (sender.hasPermission("knockbackffa.admin") || sender.isOp() || sender.hasPermission("*")) {
+			if (args.length == 1) {
+				commands.add("create");
+				commands.add("edit");
+				commands.add("delete");
+				commands.add("tp");
+				commands.add("setmap");
+				StringUtil.copyPartialMatches(args[0], commands, completions);
+			} else if (args.length > 1) {
+				for (KnockbackMap map : KnockbackFFA.getInstance().getMapManager().getAvailableMaps()) {
+					commands.add(map.getName());
+				}
+				for (KnockbackMap map : KnockbackFFA.getInstance().getMapManager().getUnavailableMaps()) {
+					commands.add(map.getName());
+				}
+				StringUtil.copyPartialMatches(args[1], commands, completions);
+			}
+		} else {
+			commands.add("join");
+			commands.add("leave");
+			StringUtil.copyPartialMatches(args[0], commands, completions);
+		}
+		Collections.sort(completions);
+		return completions;
 	}
 }
