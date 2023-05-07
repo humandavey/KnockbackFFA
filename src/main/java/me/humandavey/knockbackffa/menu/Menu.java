@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
@@ -21,6 +22,7 @@ public class Menu implements Listener {
 	private final String name;
 	private final int rows;
 	private Consumer<InventoryClickEvent> onClick;
+	private Consumer<InventoryCloseEvent> onClose;
 
 	public Menu(String name, int rows) {
 		this.inventory = Bukkit.createInventory(null, rows * 9, name);
@@ -52,6 +54,13 @@ public class Menu implements Listener {
 		}
 	}
 
+	@EventHandler
+	public void onClose(InventoryCloseEvent event) {
+		if (canCallConsumer(event)) {
+			onClose.accept(event);
+		}
+	}
+
 	public boolean canCallConsumer(InventoryClickEvent event) {
 		if (event.getInventory().equals(inventory)) {
 			return onClick != null;
@@ -59,8 +68,19 @@ public class Menu implements Listener {
 		return false;
 	}
 
+	public boolean canCallConsumer(InventoryCloseEvent event) {
+		if (event.getInventory().equals(inventory)) {
+			return onClose != null;
+		}
+		return false;
+	}
+
 	public void setOnClick(Consumer<InventoryClickEvent> onClick) {
 		this.onClick = onClick;
+	}
+
+	public void setOnClose(Consumer<InventoryCloseEvent> onClose) {
+		this.onClose = onClose;
 	}
 
 	public Consumer<InventoryClickEvent> getOnClick() {
