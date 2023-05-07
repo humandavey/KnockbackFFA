@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 public class MapManager {
 
+	private ArrayList<Player> players = new ArrayList<>();
 	private KnockbackMap currentMap;
 
 	private final ArrayList<KnockbackMap> availableMaps = new ArrayList<>();
@@ -103,6 +104,19 @@ public class MapManager {
 			}
 		}
 		return null;
+	}
+
+	public void addPlayer(Player player) {
+		players.remove(player);
+		players.add(player);
+	}
+
+	public void removePlayer(Player player) {
+		players.remove(player);
+	}
+
+	public boolean isPlaying(Player player) {
+		return players.contains(player);
 	}
 
 	public KnockbackMap getCurrentMap() {
