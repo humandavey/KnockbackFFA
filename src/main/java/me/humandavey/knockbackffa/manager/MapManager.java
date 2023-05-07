@@ -4,9 +4,9 @@ import me.humandavey.knockbackffa.KnockbackFFA;
 import me.humandavey.knockbackffa.map.KnockbackMap;
 import me.humandavey.knockbackffa.util.Util;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 public class MapManager {
 
@@ -44,6 +44,10 @@ public class MapManager {
 		}
 	}
 
+	public boolean isInCurrentMap(Player player) {
+		return currentMap.isLocationInBounds(player.getLocation());
+	}
+
 	public boolean isMapNameTaken(String name) {
 		for (KnockbackMap map : availableMaps) {
 			if (map.getName().equalsIgnoreCase(name)) {
@@ -66,7 +70,7 @@ public class MapManager {
 		KnockbackFFA.getInstance().saveConfig();
 	}
 
-	private void updateMaps() {
+	public void updateMaps() {
 		for (int i = unavailableMaps.size() - 1; i >= 0; i--) {
 			if (unavailableMaps.get(i).isMapReady()) {
 				availableMaps.add(unavailableMaps.get(i));
