@@ -9,8 +9,6 @@ import me.humandavey.knockbackffa.util.item.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
-import java.util.Map;
-
 public class KnockbackCommand extends Command {
 
 	public KnockbackCommand() {
@@ -167,7 +165,33 @@ public class KnockbackCommand extends Command {
 				}
 			}
 		} else {
-			player.sendMessage(Util.colorize("&cYou don't have permission to use this command!"));
+			if (args.length == 0) {
+				player.sendMessage(Util.colorize("&cInvalid Usage: /kbffa <join|leave>"));
+				return;
+			}
+			switch (args[0].toLowerCase()) {
+				case "join" -> {
+					if (!KnockbackFFA.getInstance().getMapManager().isPlaying(player)) {
+						KnockbackFFA.getInstance().getMapManager().addPlayer(player);
+						player.teleport(KnockbackFFA.getInstance().getMapManager().getCurrentMap().getSpawn());
+						player.sendMessage(Util.colorize("&aYou have joined KnockbackFFA!"));
+					} else {
+						player.sendMessage(Util.colorize("&cYou are already playing KnockbackFFA!"));
+					}
+				}
+				case "leave" -> {
+					if (KnockbackFFA.getInstance().getMapManager().isPlaying(player)) {
+						KnockbackFFA.getInstance().getMapManager().removePlayer(player);
+						player.teleport(Util.configToLocation(KnockbackFFA.getInstance().getConfig(), "config.default-spawn"));
+						player.sendMessage(Util.colorize("&aYou have left KnockbackFFA!"));
+					} else {
+						player.sendMessage(Util.colorize("&cYou are not playing KnockbackFFA!"));
+					}
+				}
+				default -> {
+					player.sendMessage(Util.colorize("&cInvalid Usage: /kbffa <join|leave>"));
+				}
+			}
 		}
 	}
 }
