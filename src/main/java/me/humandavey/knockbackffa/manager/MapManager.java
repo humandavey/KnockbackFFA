@@ -5,6 +5,8 @@ import me.humandavey.knockbackffa.map.KnockbackMap;
 import me.humandavey.knockbackffa.util.Util;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitTask;
 
 import java.util.ArrayList;
 
@@ -41,8 +43,19 @@ public class MapManager {
 		updateMaps();
 
 		if (availableMaps.size() > 0) {
-			currentMap = availableMaps.get(0);
+			setCurrentMap(availableMaps.get(0));
 		}
+
+		new BukkitRunnable() {
+			@Override
+			public void run() {
+				if (availableMaps.indexOf(currentMap) + 1 > availableMaps.size() - 1) {
+					setCurrentMap(availableMaps.get(0));
+					return;
+				}
+				setCurrentMap(availableMaps.get(availableMaps.indexOf(currentMap) + 1));
+			}
+		}.runTaskTimer(KnockbackFFA.getInstance(), (20 * 60) * 10L, (20 * 60) * 10L);
 	}
 
 	public boolean isInCurrentMap(Player player) {
