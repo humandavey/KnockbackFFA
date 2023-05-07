@@ -149,6 +149,19 @@ public class KnockbackCommand extends Command {
 						player.sendMessage(Util.colorize("&cInvalid Usage: /kbffa <create|edit|delete|tp|setmap> <mapname>"));
 					}
 				}
+				case "list" -> {
+					KnockbackFFA.getInstance().getMapManager().updateMaps();
+					for (KnockbackMap map : KnockbackFFA.getInstance().getMapManager().getAvailableMaps()) {
+						if (map.equals(KnockbackFFA.getInstance().getMapManager().getCurrentMap())) {
+							player.sendMessage(Util.colorize("&a&l- &a" + map.getName()));
+						} else {
+							player.sendMessage(Util.colorize("&a&l- &e" + map.getName()));
+						}
+					}
+					for (KnockbackMap map : KnockbackFFA.getInstance().getMapManager().getUnavailableMaps()) {
+						player.sendMessage(Util.colorize("&c&l- &e" + map.getName()));
+					}
+				}
 				default -> {
 					player.sendMessage(Util.colorize("&cInvalid Usage: /kbffa <create|edit|delete|tp|setmap> <mapname>"));
 				}
