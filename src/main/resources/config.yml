@@ -10,6 +10,7 @@ config:
     z: 0
     yaw: 0
     pitch: 0
+  map-rotation-minutes: 10
 
 data:
   "testmap":

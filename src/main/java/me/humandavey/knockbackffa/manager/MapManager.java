@@ -55,7 +55,7 @@ public class MapManager {
 				}
 				setCurrentMap(availableMaps.get(availableMaps.indexOf(currentMap) + 1));
 			}
-		}.runTaskTimer(KnockbackFFA.getInstance(), (20 * 60) * 10L, (20 * 60) * 10L);
+		}.runTaskTimer(KnockbackFFA.getInstance(), (20 * 60) * KnockbackFFA.getInstance().getConfig().getInt("config.map-rotation-minutes"),(20 * 60) * KnockbackFFA.getInstance().getConfig().getInt("config.map-rotation-minutes"));
 	}
 
 	public boolean isInCurrentMap(Player player) {
