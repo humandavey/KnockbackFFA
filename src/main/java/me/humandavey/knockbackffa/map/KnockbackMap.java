@@ -25,6 +25,7 @@ public class KnockbackMap {
 	}
 
 	public boolean isLocationInBounds(Location location) {
+		if (pos1 == null || pos2 == null) return false;
 		int minX = Math.min(pos1.getBlockX(), pos2.getBlockX());
 		int minY = Math.min(pos1.getBlockY(), pos2.getBlockY());
 		int minZ = Math.min(pos1.getBlockZ(), pos2.getBlockZ());
@@ -43,6 +44,8 @@ public class KnockbackMap {
 		KnockbackFFA.getInstance().getConfig().set("data." + name + ".corner-1.y", pos1.getY());
 		KnockbackFFA.getInstance().getConfig().set("data." + name + ".corner-1.z", pos1.getZ());
 		KnockbackFFA.getInstance().saveConfig();
+
+		KnockbackFFA.getInstance().getMapManager().updateMaps();
 	}
 
 	public void setPos2(Location pos2) {
@@ -52,6 +55,8 @@ public class KnockbackMap {
 		KnockbackFFA.getInstance().getConfig().set("data." + name + ".corner-2.y", pos2.getY());
 		KnockbackFFA.getInstance().getConfig().set("data." + name + ".corner-2.z", pos2.getZ());
 		KnockbackFFA.getInstance().saveConfig();
+
+		KnockbackFFA.getInstance().getMapManager().updateMaps();
 	}
 
 	public void setSpawn(Location spawn) {
@@ -63,10 +68,20 @@ public class KnockbackMap {
 		KnockbackFFA.getInstance().getConfig().set("data." + name + ".spawn.yaw", spawn.getYaw());
 		KnockbackFFA.getInstance().getConfig().set("data." + name + ".spawn.pitch", spawn.getPitch());
 		KnockbackFFA.getInstance().saveConfig();
+
+		KnockbackFFA.getInstance().getMapManager().updateMaps();
 	}
 
 	public Location getSpawn() {
 		return spawn;
+	}
+
+	public Location getPos1() {
+		return pos1;
+	}
+
+	public Location getPos2() {
+		return pos2;
 	}
 
 	public String getName() {
