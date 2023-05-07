@@ -194,8 +194,11 @@ public class KnockbackCommand extends Command {
 						player.sendMessage(Util.colorize("&cYou are not playing KnockbackFFA!"));
 					}
 				}
+				case "hotbar" -> {
+					// TODO: Implement hotbar item switcher
+				}
 				default -> {
-					player.sendMessage(Util.colorize("&cInvalid Usage: /kbffa <join|leave>"));
+					player.sendMessage(Util.colorize("&cInvalid Usage: /kbffa <join|leave|hotbar>"));
 				}
 			}
 		}
@@ -226,6 +229,7 @@ public class KnockbackCommand extends Command {
 		} else {
 			commands.add("join");
 			commands.add("leave");
+			commands.add("hotbar");
 			StringUtil.copyPartialMatches(args[0], commands, completions);
 		}
 		Collections.sort(completions);
