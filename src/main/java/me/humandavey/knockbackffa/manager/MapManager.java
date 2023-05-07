@@ -127,6 +127,8 @@ public class MapManager {
 	public void addPlayer(Player player) {
 		players.remove(player);
 		players.add(player);
+
+		player.teleport(currentMap.getSpawn());
 	}
 
 	public void removePlayer(Player player) {
