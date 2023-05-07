@@ -1,7 +1,9 @@
 package me.humandavey.knockbackffa.listeners;
 
 import me.humandavey.knockbackffa.KnockbackFFA;
+import me.humandavey.knockbackffa.manager.InventoryManager;
 import me.humandavey.knockbackffa.map.KnockbackMap;
+import me.humandavey.knockbackffa.util.Util;
 import me.humandavey.knockbackffa.util.item.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -23,17 +25,13 @@ public class PlayerMoveListener implements Listener {
 				KnockbackMap map = KnockbackFFA.getInstance().getMapManager().getCurrentMap();
 				if (map.isLocationInBounds(player.getLocation())) {
 					if (event.getTo().getY() < map.getSpawn().getY() - 5 && !player.getInventory().contains(Material.STICK)) {
-						player.getInventory().addItem(new ItemBuilder(Material.STICK).addEnchantment(Enchantment.KNOCKBACK, 2).build());
-						player.getInventory().addItem(new ItemStack(Material.ENDER_PEARL, 2));
-						player.getInventory().addItem(new ItemStack(Material.SANDSTONE, 64));
+						Util.resetPlayer(player, true);
+						InventoryManager.giveItems(player);
 					} else if (event.getTo().getY() > map.getSpawn().getY() - 5 && player.getInventory().contains(Material.STICK)) {
 						player.getInventory().clear();
 					}
 					if (event.getTo().getY() < Math.min(map.getPos1().getY(), map.getPos2().getY())) {
-						player.setHealth(20);
-						player.setFoodLevel(20);
-						player.getInventory().clear();
-						player.setFallDistance(0);
+						Util.resetPlayer(player, true);
 						player.teleport(KnockbackFFA.getInstance().getMapManager().getCurrentMap().getSpawn());
 					}
 				}
