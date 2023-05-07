@@ -89,7 +89,12 @@ public class MapManager {
 	public void setCurrentMap(KnockbackMap currentMap) {
 		this.currentMap = currentMap;
 
-		// TODO: Teleport all players and reset their stats
+		for (Player player : players) {
+			player.setHealth(20);
+			player.setFoodLevel(0);
+			player.setFallDistance(0);
+			player.teleport(currentMap.getSpawn());
+		}
 	}
 
 	public KnockbackMap getMap(String name) {
