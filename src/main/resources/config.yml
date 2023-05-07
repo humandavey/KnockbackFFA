@@ -2,8 +2,16 @@
 # KnockbackFFA by humandavey #
 #----------------------------#
 
+config:
+  default-spawn:
+    world: "world"
+    x: 0
+    y: 80
+    z: 0
+    yaw: 0
+    pitch: 0
+
 data:
-  map-world: "world"
   "testmap":
     spawn:
       world: "world"
