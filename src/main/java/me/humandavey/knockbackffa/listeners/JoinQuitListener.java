@@ -11,15 +11,6 @@ import org.bukkit.event.player.PlayerQuitEvent;
 public class JoinQuitListener implements Listener {
 
 	@EventHandler
-	public void onJoin(PlayerJoinEvent event) {
-		for (Player player : Bukkit.getOnlinePlayers()) {
-			if (KnockbackFFA.getInstance().getMapManager().isInCurrentMap(player)) {
-				KnockbackFFA.getInstance().getMapManager().addPlayer(player);
-			}
-		}
-	}
-
-	@EventHandler
 	public void onQuit(PlayerQuitEvent event) {
 		KnockbackFFA.getInstance().getMapManager().removePlayer(event.getPlayer());
 	}
