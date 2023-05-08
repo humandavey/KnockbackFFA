@@ -2,6 +2,7 @@ package me.humandavey.knockbackffa.command.commands;
 
 import me.humandavey.knockbackffa.KnockbackFFA;
 import me.humandavey.knockbackffa.command.Command;
+import me.humandavey.knockbackffa.manager.InventoryManager;
 import me.humandavey.knockbackffa.map.KnockbackMap;
 import me.humandavey.knockbackffa.menu.Menu;
 import me.humandavey.knockbackffa.util.Util;
@@ -9,6 +10,9 @@ import me.humandavey.knockbackffa.util.item.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.ClickType;
+import org.bukkit.event.inventory.InventoryAction;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.StringUtil;
 
 import java.util.ArrayList;
@@ -166,6 +170,68 @@ public class KnockbackCommand extends Command {
 						player.sendMessage(Util.colorize("&c&l- &e" + map.getName()));
 					}
 				}
+				case "join" -> {
+					if (!KnockbackFFA.getInstance().getMapManager().isPlaying(player)) {
+						KnockbackFFA.getInstance().getMapManager().addPlayer(player);
+						player.teleport(KnockbackFFA.getInstance().getMapManager().getCurrentMap().getSpawn());
+						player.sendMessage(Util.colorize("&aYou have joined KnockbackFFA!"));
+					} else {
+						player.sendMessage(Util.colorize("&cYou are already playing KnockbackFFA!"));
+					}
+				}
+				case "leave" -> {
+					if (KnockbackFFA.getInstance().getMapManager().isPlaying(player)) {
+						KnockbackFFA.getInstance().getMapManager().removePlayer(player);
+						player.teleport(Util.configToLocation(KnockbackFFA.getInstance().getConfig(), "config.default-spawn"));
+						player.sendMessage(Util.colorize("&aYou have left KnockbackFFA!"));
+					} else {
+						player.sendMessage(Util.colorize("&cYou are not playing KnockbackFFA!"));
+					}
+				}
+				case "hotbar" -> {
+					if (KnockbackFFA.getInstance().getMapManager().isPlaying(player)) {
+						Menu menu = new Menu("Inventory Customizer", 1);
+						menu.setItemAt(0, new ItemStack(Material.STICK));
+						menu.setItemAt(1, new ItemStack(Material.BOW));
+						menu.setItemAt(2, new ItemStack(Material.SANDSTONE));
+						menu.setItemAt(3, new ItemStack(Material.ARROW));
+
+						menu.setOnClick(event -> {
+							if (event.getRawSlot() > 8) {
+								System.out.println(event.getAction());
+								if (event.getAction() == InventoryAction.PLACE_ALL || event.getAction() == InventoryAction.PLACE_ONE) {
+									event.setCancelled(true);
+									event.setCursor(null);
+								}
+							}
+							if (event.getCurrentItem() == null) return;
+							if (!(event.getCurrentItem().getType() == Material.STICK ||
+									event.getCurrentItem().getType() == Material.BOW ||
+									event.getCurrentItem().getType() == Material.SANDSTONE ||
+									event.getCurrentItem().getType() == Material.ARROW)) {
+
+								event.setCancelled(true);
+							}
+						});
+
+						menu.setOnClose(event -> {
+							if (event.getInventory().contains(Material.STICK) &&
+									event.getInventory().contains(Material.BOW) &&
+									event.getInventory().contains(Material.SANDSTONE) &&
+									event.getInventory().contains(Material.ARROW)) {
+
+								InventoryManager.saveSelection((Player) event.getPlayer());
+								player.sendMessage(Util.colorize("&aUpdated your inventory preferences!"));
+							} else {
+								player.sendMessage(Util.colorize("&cYou didn't place all the items, so it wasnt updated!"));
+							}
+						});
+
+						menu.open(player);
+					} else {
+						player.sendMessage(Util.colorize("&cYou are not playing KnockbackFFA!"));
+					}
+				}
 				default -> {
 					player.sendMessage(Util.colorize("&cInvalid Usage: /kbffa <create|edit|delete|tp|setmap> <mapname>"));
 				}
@@ -195,7 +261,48 @@ public class KnockbackCommand extends Command {
 					}
 				}
 				case "hotbar" -> {
-					// TODO: Implement hotbar item switcher
+					if (KnockbackFFA.getInstance().getMapManager().isPlaying(player)) {
+						Menu menu = new Menu("Inventory Customizer", 1);
+						menu.setItemAt(0, new ItemStack(Material.STICK));
+						menu.setItemAt(1, new ItemStack(Material.BOW));
+						menu.setItemAt(2, new ItemStack(Material.SANDSTONE));
+						menu.setItemAt(3, new ItemStack(Material.ARROW));
+
+						menu.setOnClick(event -> {
+							if (event.getRawSlot() > 8) {
+								System.out.println(event.getAction());
+								if (event.getAction() == InventoryAction.PLACE_ALL || event.getAction() == InventoryAction.PLACE_ONE) {
+									event.setCancelled(true);
+									event.setCursor(null);
+								}
+							}
+							if (event.getCurrentItem() == null) return;
+							if (!(event.getCurrentItem().getType() == Material.STICK ||
+									event.getCurrentItem().getType() == Material.BOW ||
+									event.getCurrentItem().getType() == Material.SANDSTONE ||
+									event.getCurrentItem().getType() == Material.ARROW)) {
+
+								event.setCancelled(true);
+							}
+						});
+
+						menu.setOnClose(event -> {
+							if (event.getInventory().contains(Material.STICK) &&
+									event.getInventory().contains(Material.BOW) &&
+									event.getInventory().contains(Material.SANDSTONE) &&
+									event.getInventory().contains(Material.ARROW)) {
+
+								InventoryManager.saveSelection((Player) event.getPlayer());
+								player.sendMessage(Util.colorize("&aUpdated your inventory preferences!"));
+							} else {
+								player.sendMessage(Util.colorize("&cYou didn't place all the items, so it wasnt updated!"));
+							}
+						});
+
+						menu.open(player);
+					} else {
+						player.sendMessage(Util.colorize("&cYou are not playing KnockbackFFA!"));
+					}
 				}
 				default -> {
 					player.sendMessage(Util.colorize("&cInvalid Usage: /kbffa <join|leave|hotbar>"));
@@ -216,6 +323,9 @@ public class KnockbackCommand extends Command {
 				commands.add("delete");
 				commands.add("tp");
 				commands.add("setmap");
+				commands.add("join");
+				commands.add("leave");
+				commands.add("hotbar");
 				StringUtil.copyPartialMatches(args[0], commands, completions);
 			} else if (args.length > 1) {
 				for (KnockbackMap map : KnockbackFFA.getInstance().getMapManager().getAvailableMaps()) {
