@@ -4,16 +4,11 @@ import me.humandavey.knockbackffa.KnockbackFFA;
 import me.humandavey.knockbackffa.manager.InventoryManager;
 import me.humandavey.knockbackffa.map.KnockbackMap;
 import me.humandavey.knockbackffa.util.Util;
-import me.humandavey.knockbackffa.util.item.ItemBuilder;
 import org.bukkit.Material;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.inventory.ItemStack;
-
-import java.util.Map;
 
 public class PlayerMoveListener implements Listener {
 
@@ -26,7 +21,7 @@ public class PlayerMoveListener implements Listener {
 				if (map.isLocationInBounds(player.getLocation())) {
 					if (event.getTo().getY() < map.getSpawn().getY() - 5 && !player.getInventory().contains(Material.STICK)) {
 						Util.resetPlayer(player, true);
-						InventoryManager.giveItems(player);
+						InventoryManager.giveSelection(player);
 					} else if (event.getTo().getY() > map.getSpawn().getY() - 5 && player.getInventory().contains(Material.STICK)) {
 						player.getInventory().clear();
 					}
