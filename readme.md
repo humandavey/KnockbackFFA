@@ -1,10 +1,14 @@
 # KnockbackFFA [humandavey]
 
-This is a cool KnockbackFFA plugin
+The next KnockbackFFA plugin
 
 ## Features
 
-Coming soon
+- Customizable inventory preferences
+- Up to 9 customizable items in config
+- 100% of messages can be translated in config
+- Change all settings to fit your needs
+- Menu used to create maps and edit locations for them
 
 ## Support
 
