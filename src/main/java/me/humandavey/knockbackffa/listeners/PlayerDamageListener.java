@@ -13,6 +13,9 @@ public class PlayerDamageListener implements Listener {
 		if (event.getEntity() instanceof Player victim) {
 			if (KnockbackFFA.getInstance().getMapManager().isInCurrentMap(victim)) {
 				event.setDamage(0);
+				if (victim.getLocation().getY() > KnockbackFFA.getInstance().getMapManager().getCurrentMap().getSpawn().getY() - 5) {
+					event.setCancelled(true);
+				}
 			}
 		}
 	}
