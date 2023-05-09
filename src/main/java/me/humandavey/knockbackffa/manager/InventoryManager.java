@@ -6,8 +6,9 @@ import me.humandavey.knockbackffa.util.item.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+
+import java.util.ArrayList;
 
 public class InventoryManager {
 
@@ -28,11 +29,11 @@ public class InventoryManager {
 				case BOW -> {
 					out += "bow:" + i + ";";
 				}
-				case SANDSTONE -> {
-					out += "blocks:" + i + ";";
-				}
 				case ARROW -> {
 					out += "arrows:" + i + ";";
+				}
+				default -> {
+					out += items[i].getType().name() + ":" + i + ";";
 				}
 			}
 		}
@@ -60,11 +61,13 @@ public class InventoryManager {
 								.setItemName(Util.colorize("&6Bow"))
 								.build());
 					}
-					case "blocks" -> {
-						player.getInventory().setItem(Integer.parseInt(item[1]), new ItemStack(Material.SANDSTONE, 64));
-					}
 					case "arrows" -> {
 						player.getInventory().setItem(Integer.parseInt(item[1]), new ItemStack(Material.ARROW, 10));
+					}
+					default -> {
+						if (isABuildingBlock(item[0])) {
+							player.getInventory().setItem(Integer.parseInt(item[1]), new ItemStack(Material.getMaterial(item[0]), 64));
+						}
 					}
 				}
 			}
@@ -94,5 +97,22 @@ public class InventoryManager {
 
 	private static String getCustomSelection(Player player) {
 		return KnockbackFFA.getInstance().getConfig().getString("inventories." + player.getUniqueId());
+	}
+
+	public static boolean isABuildingBlock(String material) {
+		if (Material.getMaterial(material) == null) return false;
+		return isABuildingBlock(Material.getMaterial(material));
+	}
+
+	private static boolean isABuildingBlock(Material material) {
+		ArrayList<String> mats = new ArrayList<>(KnockbackFFA.getInstance().getConfig().getStringList("config.building-blocks"));
+		ArrayList<Material> valid = new ArrayList<>();
+
+		for (String s : mats) {
+			if (Material.getMaterial(s) != null) {
+				valid.add(Material.getMaterial(s));
+			}
+		}
+		return valid.contains(material) && material.isBlock();
 	}
 }
