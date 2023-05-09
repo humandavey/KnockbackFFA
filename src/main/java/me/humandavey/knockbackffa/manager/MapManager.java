@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class MapManager {
 
-	private ArrayList<Player> players = new ArrayList<>();
+	private final ArrayList<Player> players = new ArrayList<>();
 	private KnockbackMap currentMap;
 
 	private final ArrayList<KnockbackMap> availableMaps = new ArrayList<>();
@@ -54,6 +54,11 @@ public class MapManager {
 					return;
 				}
 				setCurrentMap(availableMaps.get(availableMaps.indexOf(currentMap) + 1));
+				for (Player player : players) {
+					player.sendMessage("");
+					player.sendMessage(Util.colorize("&eThe map has been switched to &6&l" + currentMap.getName() + "&e!"));
+					player.sendMessage("");
+				}
 			}
 		}.runTaskTimer(KnockbackFFA.getInstance(), (20 * 60) * KnockbackFFA.getInstance().getConfig().getInt("config.map-rotation-minutes"),(20 * 60) * KnockbackFFA.getInstance().getConfig().getInt("config.map-rotation-minutes"));
 	}
