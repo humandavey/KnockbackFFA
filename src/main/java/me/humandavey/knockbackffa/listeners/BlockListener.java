@@ -50,7 +50,7 @@ public class BlockListener implements Listener {
 	@EventHandler
 	public void onHungerChange(FoodLevelChangeEvent event) {
 		if (KnockbackFFA.getInstance().getMapManager().isPlaying((Player) event.getEntity())) {
-			event.getEntity().setFoodLevel(20);
+			event.setCancelled(true);
 		}
 	}
 }
