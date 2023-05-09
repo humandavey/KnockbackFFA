@@ -11,6 +11,10 @@ config:
     yaw: 0
     pitch: 0
   map-rotation-minutes: 10
+  building-blocks:
+    - SANDSTONE
+    - DIAMOND_BLOCK
+    - BEDROCK
 
 data:
   "testmap":
@@ -33,4 +37,4 @@ data:
       z: 0
 
 inventories:
-  "18277c8ab2e2446380a76ee5ba004a94": "stick:0;bow:1;blocks:4;arrows:8"
+  "18277c8ab2e2446380a76ee5ba004a94": "stick:0;bow:1;BEDROCK:4;arrows:8"
