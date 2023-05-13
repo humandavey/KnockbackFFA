@@ -193,8 +193,9 @@ public class KnockbackCommand extends Command {
 						Menu menu = new Menu("Inventory Customizer", 1);
 						menu.setItemAt(0, new ItemStack(Material.STICK));
 						menu.setItemAt(1, new ItemStack(Material.BOW));
-						menu.setItemAt(2, new ItemStack(Material.SANDSTONE));
-						menu.setItemAt(3, new ItemStack(Material.ARROW));
+						menu.setItemAt(2, new ItemStack(Material.ENDER_PEARL));
+						menu.setItemAt(3, new ItemStack(Material.SANDSTONE));
+						menu.setItemAt(4, new ItemStack(Material.ARROW));
 
 						menu.setOnClick(event -> {
 							if (event.getRawSlot() > 8) {
@@ -207,6 +208,7 @@ public class KnockbackCommand extends Command {
 							if (event.getCurrentItem() == null) return;
 							if (!(event.getCurrentItem().getType() == Material.STICK ||
 									event.getCurrentItem().getType() == Material.BOW ||
+									event.getCurrentItem().getType() == Material.ENDER_PEARL ||
 									event.getCurrentItem().getType() == Material.SANDSTONE ||
 									event.getCurrentItem().getType() == Material.ARROW)) {
 
@@ -217,6 +219,7 @@ public class KnockbackCommand extends Command {
 						menu.setOnClose(event -> {
 							if (event.getInventory().contains(Material.STICK) &&
 									event.getInventory().contains(Material.BOW) &&
+									event.getInventory().contains(Material.ENDER_PEARL) &&
 									event.getInventory().contains(Material.SANDSTONE) &&
 									event.getInventory().contains(Material.ARROW)) {
 
@@ -265,8 +268,9 @@ public class KnockbackCommand extends Command {
 						Menu menu = new Menu("Inventory Customizer", 1);
 						menu.setItemAt(0, new ItemStack(Material.STICK));
 						menu.setItemAt(1, new ItemStack(Material.BOW));
-						menu.setItemAt(2, new ItemStack(Material.SANDSTONE));
-						menu.setItemAt(3, new ItemStack(Material.ARROW));
+						menu.setItemAt(2, new ItemStack(Material.ENDER_PEARL));
+						menu.setItemAt(3, new ItemStack(Material.SANDSTONE));
+						menu.setItemAt(4, new ItemStack(Material.ARROW));
 
 						menu.setOnClick(event -> {
 							if (event.getRawSlot() > 8) {
@@ -280,6 +284,7 @@ public class KnockbackCommand extends Command {
 							if (!(event.getCurrentItem().getType() == Material.STICK ||
 									event.getCurrentItem().getType() == Material.BOW ||
 									event.getCurrentItem().getType() == Material.SANDSTONE ||
+									event.getCurrentItem().getType() == Material.ENDER_PEARL ||
 									event.getCurrentItem().getType() == Material.ARROW)) {
 
 								event.setCancelled(true);
@@ -290,6 +295,7 @@ public class KnockbackCommand extends Command {
 							if (event.getInventory().contains(Material.STICK) &&
 									event.getInventory().contains(Material.BOW) &&
 									event.getInventory().contains(Material.SANDSTONE) &&
+									event.getInventory().contains(Material.ENDER_PEARL) &&
 									event.getInventory().contains(Material.ARROW)) {
 
 								InventoryManager.saveSelection((Player) event.getPlayer());

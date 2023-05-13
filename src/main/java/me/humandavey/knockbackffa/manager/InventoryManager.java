@@ -29,6 +29,9 @@ public class InventoryManager {
 				case BOW -> {
 					out += "bow:" + i + ";";
 				}
+				case ENDER_PEARL -> {
+					out += "pearl:" + i + ";";
+				}
 				case ARROW -> {
 					out += "arrows:" + i + ";";
 				}
@@ -51,13 +54,18 @@ public class InventoryManager {
 				switch (item[0]) {
 					case "stick" -> {
 						player.getInventory().setItem(Integer.parseInt(item[1]), new ItemBuilder(Material.STICK)
-								.addEnchantment(Enchantment.KNOCKBACK, 1)
+								.addEnchantment(Enchantment.KNOCKBACK, 2)
 								.setItemName(Util.colorize("&eKnockback Stick"))
+								.build());
+					}
+
+					case "pearl" -> {
+						player.getInventory().setItem(Integer.parseInt(item[1]), new ItemBuilder(Material.ENDER_PEARL)
 								.build());
 					}
 					case "bow" -> {
 						player.getInventory().setItem(Integer.parseInt(item[1]), new ItemBuilder(Material.BOW)
-								.addEnchantment(Enchantment.ARROW_KNOCKBACK, 1)
+								.addEnchantment(Enchantment.ARROW_KNOCKBACK, 2)
 								.setItemName(Util.colorize("&6Bow"))
 								.build());
 					}
@@ -82,11 +90,14 @@ public class InventoryManager {
 					.setItemName(Util.colorize("&6Bow"))
 					.build());
 
+			player.getInventory().addItem(new ItemBuilder(Material.ENDER_PEARL)
+					.build());
+
 			player.getInventory().addItem(new ItemStack(Material.SANDSTONE, 64));
 
 			player.getInventory().addItem(new ItemStack(Material.ARROW, 10));
 
-			KnockbackFFA.getInstance().getConfig().set("inventories." + player.getUniqueId(), "stick:0;bow:1;blocks:2;arrows:3");
+			KnockbackFFA.getInstance().getConfig().set("inventories." + player.getUniqueId(), "stick:0;bow:1;pearl:2;SANDSTONE:3;arrows:3");
 			KnockbackFFA.getInstance().saveConfig();
 		}
 	}

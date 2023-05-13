@@ -7,6 +7,9 @@ import me.humandavey.knockbackffa.listeners.PlayerDamageListener;
 import me.humandavey.knockbackffa.listeners.PlayerMoveListener;
 import me.humandavey.knockbackffa.manager.MapManager;
 import me.humandavey.knockbackffa.nametag.NametagManager;
+import me.humandavey.knockbackffa.util.Util;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class KnockbackFFA extends JavaPlugin {
@@ -22,6 +25,13 @@ public final class KnockbackFFA extends JavaPlugin {
 		setupManagers();
 		registerListeners();
 		registerCommands();
+
+		for (Player player : Bukkit.getOnlinePlayers()) {
+			if (getMapManager().getCurrentMap().isLocationInBounds(player.getLocation())) {
+				getMapManager().addPlayer(player);
+				player.sendMessage(Util.colorize("&aYou have joined KnockbackFFA!"));
+			}
+		}
 	}
 
 	@Override

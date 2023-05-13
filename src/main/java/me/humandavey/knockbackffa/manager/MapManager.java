@@ -64,7 +64,13 @@ public class MapManager {
 	}
 
 	public boolean isInCurrentMap(Player player) {
-		return currentMap.isLocationInBounds(player.getLocation());
+		return currentMap.isLocationInBounds(player.getLocation()) && players.contains(player);
+	}
+
+	public void sendMessage(String message) {
+		for (Player p : players) {
+			p.sendMessage(message);
+		}
 	}
 
 	public boolean isMapNameTaken(String name) {
